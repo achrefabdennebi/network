@@ -11,3 +11,12 @@ class Post(models.Model):
     created_by = models.ForeignKey(User,null=True, blank=True, on_delete=DO_NOTHING, related_name="users")
     created_date = models.DateTimeField() 
 
+    def serialize(self):
+        return {
+            "id": self.id,
+            "created_by": self.created_by.name,
+            "timestamp": self.created_date.strftime("%b %d %Y, %I:%M %p")
+        }
+
+    def __str__(self):
+        return f"{self.content[:25] } - {self.created_by} / ({self.created_date.strftime('%b %d %Y, %I:%M %p') })"
