@@ -68,6 +68,8 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
+def getPostList(request):
+    return render(request, "network/post.html")
 
 def register(request):
     if request.method == "POST":

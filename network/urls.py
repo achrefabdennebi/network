@@ -9,5 +9,6 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     # API Routes
-    path("save", views.createPost, name="createPost")
+    path("save", views.createPost, name="createPost"),
+    path("posts", views.getPostList, name="posts")
 ]

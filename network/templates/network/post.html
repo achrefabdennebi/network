@@ -1,0 +1,33 @@
+{% extends "network/layout.html" %}
+{% block body %}
+<div class="container-fluid">
+    <h1>All Posts</h1>
+
+    <!-- Box of list posts -->
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="post-detail">
+                        <h4>{{ user.username }}</h4>
+                        <a href="#">Edit</a>
+                        <div class="post-content">
+                            Hello!
+                        </div>
+                        <span class="text-muted">March 29,2020, 11:40 p.m</span>
+                        <div class="post-reaction">
+                            <button type="button" class="btn p-0">
+                                <i class="fas fa-heart text-danger"></i>
+                                <span class="font-weight-normal">1</span>
+                            </button>
+                        </div>
+                        <div>
+                            <p class="text-muted">Comment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
