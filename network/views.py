@@ -69,7 +69,10 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("index"))
 
 def getPostList(request):
-    return render(request, "network/post.html")
+    posts = Post.objects.all().order_by('-created_date')
+    return render(request, "network/post.html", {
+        "posts": posts
+    })
 
 def register(request):
     if request.method == "POST":
