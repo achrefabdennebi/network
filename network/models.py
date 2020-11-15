@@ -9,6 +9,7 @@ class User(AbstractUser):
 class Post(models.Model):
     content = models.CharField(max_length=250)
     created_by = models.ForeignKey(User,null=True, blank=True, on_delete=DO_NOTHING, related_name="users")
+    likes = models.IntegerField(default=0)
     created_date = models.DateTimeField() 
 
     def serialize(self):
