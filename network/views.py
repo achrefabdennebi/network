@@ -63,6 +63,8 @@ def login_view(request):
     else:
         return render(request, "network/login.html")
 
+def getProfile(request):
+    return render(request, "network/profile.html")
 
 def logout_view(request):
     logout(request)
