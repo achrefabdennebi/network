@@ -9,7 +9,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="post-detail">
-                        <h4>{{ post.created_by }}</h4>
+                        <h4>
+                            <a href="{% url 'profile' post.created_by.id %}">
+                                {{ post.created_by }}
+                            </a>
+                        </h4>
                         {% if post.created_by.id ==  user.id %}
                         <a href="#">Edit</a>
                         {% endif %}

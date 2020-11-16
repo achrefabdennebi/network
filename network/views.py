@@ -63,7 +63,8 @@ def login_view(request):
     else:
         return render(request, "network/login.html")
 
-def getProfile(request):
+def getProfile(request, profile_id):
+    print(f"PROFILE ID: {profile_id}")
     return render(request, "network/profile.html")
 
 def logout_view(request):
