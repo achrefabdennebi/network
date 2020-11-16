@@ -65,7 +65,15 @@ def login_view(request):
 
 def getProfile(request, profile_id):
     print(f"PROFILE ID: {profile_id}")
-    return render(request, "network/profile.html")
+    try:
+        profile = User.objects.get(pk=profile_id)
+        print(profile)
+    except User.DoesNotExist:
+        raise CommandError("Post not saved")
+    
+    return render(request, "network/profile.html", {
+        "profile": profile
+    })
 
 def logout_view(request):
     logout(request)
