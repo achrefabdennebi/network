@@ -1,20 +1,31 @@
 {% extends "network/layout.html" %}
 {% block body %}
-<h1>Profile</h1>
-<h4>{{ profile }}</h4>
-<p>
-    {{profile.first_name}}
-</p>
-<div>
-    <div>
-        followers : {{followers}}
+<div class="container-fluid mt-3">
+    <div class="card">
+        <div class="card-header">
+          <div class="float-left">
+            <i class="fas fa-user-alt"></i>
+            <span class="font-weight-bold text-capitalize">{{ profile }}</span>
+          </div>
+          <div class="float-right">
+            <div>
+                <span>following: <strong>{{following}}</strong></span> |
+                <span>followers: <strong>{{followers}}</strong></span>
+            </div>
+            
+          </div>
+        </div>
+        <div class="card-body bg-light">
+        <div class="float-right">
+            <a href="#" class="btn btn-primary btn-sm">Follow</a>
+            <a href="#" class="btn btn-danger btn-sm">Unfollow</a>
+        </div>
+        </div>
     </div>
-    <div>
-        following : {{following}}
-    </div> 
 </div>
-<div class="container-fluid">
-    <h1>Posts: {{ profile }} </h1>
+
+<div class="container-fluid mt-3">
+    <h5>Posts: </h5>
     {% for post in posts %}
     <!-- Box of list posts -->
     <div class="row mt-2">
