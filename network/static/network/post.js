@@ -32,5 +32,6 @@ function savePost() {
  */
 function resetPostField () {
     document.getElementById(`postContent`).value = ``;
+    window.location.replace(`${window.location.origin}/posts`);
 }
 
