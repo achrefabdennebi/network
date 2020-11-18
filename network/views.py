@@ -69,8 +69,7 @@ def getProfile(request, profile_id):
         profile = User.objects.get(pk=profile_id)
         following = profile.following.count()
         followers = profile.followers.count()
-        posts = Post.objects.filter(created_by=profile.id).all()
-        print(posts)
+        posts = Post.objects.filter(created_by=profile.id).all().order_by('-created_date')
     except User.DoesNotExist:
         raise CommandError("Post not saved")
     
