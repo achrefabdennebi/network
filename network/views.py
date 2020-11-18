@@ -69,13 +69,16 @@ def getProfile(request, profile_id):
         profile = User.objects.get(pk=profile_id)
         following = profile.following.count()
         followers = profile.followers.count()
+        posts = Post.objects.filter(created_by=profile.id).all()
+        print(posts)
     except User.DoesNotExist:
         raise CommandError("Post not saved")
     
     return render(request, "network/profile.html", {
         "profile": profile, 
         "following": following,
-        "followers" : followers
+        "followers" : followers,
+        "posts": posts
     })
 
 def logout_view(request):
