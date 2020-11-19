@@ -10,9 +10,13 @@
                 <div class="card-body">
                     <div class="post-detail">
                         <h4>
+                            {% if post.created_by.id != user.id %}
                             <a href="{% url 'profile' post.created_by.id %}">
                                 {{ post.created_by }}
                             </a>
+                            {% else %}
+                                {{ post.created_by }}
+                            {% endif %}
                         </h4>
                         {% if post.created_by.id ==  user.id %}
                         <a href="#">Edit</a>
