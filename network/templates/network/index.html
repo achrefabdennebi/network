@@ -3,6 +3,7 @@
 {% block body %}
 <div class="container-fluid">
     <!-- BOX add post -->
+    {% if user.is_authenticated %}
     <div class="row mt-2">
         <div class="col-md-12">
             <div class="card">
@@ -16,5 +17,21 @@
             </div>
         </div>
     </div>
+    {% else %}
+    <div>
+        <div class="d-flex justify-content-center mt-5">
+            <div class="card text-center">
+                <div class="card-header">
+                  Project
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Social Network</h5>
+                  <p class="card-text">Twitter-like social network website for making posts and following users</p>
+                  <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
