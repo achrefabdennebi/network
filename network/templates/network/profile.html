@@ -16,6 +16,7 @@
           </div>
         </div>
         <div class="card-body bg-light">
+        {% if user.id != profile.id%}
         <div class="float-right">
             {% if is_followed %}
                 <a href="#" class="btn btn-danger btn-sm">Unfollow</a>
@@ -23,6 +24,7 @@
                 <a href="#" class="btn btn-primary btn-sm">Follow</a>
             {% endif  %}
         </div>
+        {% endif %}
         </div>
     </div>
 </div>
