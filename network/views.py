@@ -92,6 +92,9 @@ def getPostList(request):
         "posts": posts
     })
 
+def following(request):
+    return render(request, "network/post.html")
+
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]

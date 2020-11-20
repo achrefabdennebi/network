@@ -11,5 +11,6 @@ urlpatterns = [
     # API Routes
     path("save", views.createPost, name="createPost"),
     path("posts", views.getPostList, name="posts"),
-    path("profile/<int:profile_id>", views.getProfile, name="profile")
+    path("profile/<int:profile_id>", views.getProfile, name="profile"),
+    path("following", views.following, name="following")
 ]
