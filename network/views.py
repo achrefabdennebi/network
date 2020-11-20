@@ -2,6 +2,7 @@ from datetime import timezone
 import json;
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.db.models import Subquery
 from django.http import HttpResponseRedirect
 from django.http.response import JsonResponse
 from django.shortcuts import render
@@ -9,7 +10,7 @@ from django.urls import reverse
 from django.core.management.base import CommandError
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from .models import User, Post
+from .models import User, Post, Follower
 import datetime
 
 def index(request):
@@ -93,8 +94,11 @@ def getPostList(request):
     })
 
 def following(request):
-    print("Hello from following page")
-    return render(request, "network/post.html")
+    following  = Follower.objects.filter(follower_id = request.user.id).values('following')
+    posts = Post.objects.filter(created_by__in=Subquery(following))
+    return render(request, "network/post.html", {
+        "posts": posts
+    })
 
 def register(request):
     if request.method == "POST":
