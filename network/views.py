@@ -93,6 +93,7 @@ def getPostList(request):
     })
 
 def following(request):
+    print("Hello from following page")
     return render(request, "network/post.html")
 
 def register(request):
