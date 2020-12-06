@@ -72,6 +72,10 @@ def getProfile(request, profile_id):
         followersCount = profile.followers.count()
         posts = Post.objects.filter(created_by=profile.id).all().order_by('-created_date')
         is_followed = profile.followers.filter(following_id = profile_id).exists()
+        # Add pagination for page profile
+        paginator= Paginator(posts, 10);
+        page_number = request.GET.get('page')
+        post_page = paginator.get_page(page_number)
 
     except User.DoesNotExist:
         raise CommandError("Post not saved")
@@ -81,7 +85,7 @@ def getProfile(request, profile_id):
         "following": following,
         "followers" : followersCount,
         "is_followed": is_followed,
-        "posts": posts
+        "posts": post_page
     })
 
 def logout_view(request):
@@ -90,7 +94,7 @@ def logout_view(request):
 
 def getPostList(request):
     posts = Post.objects.all().order_by('-created_date')
-    paginator= Paginator(posts, 3);
+    paginator= Paginator(posts, 10);
 
     page_number = request.GET.get('page')
     post_page = paginator.get_page(page_number)
@@ -102,8 +106,14 @@ def getPostList(request):
 def following(request):
     following  = Follower.objects.filter(follower_id = request.user.id).values('following')
     posts = Post.objects.filter(created_by__in=Subquery(following))
+
+    paginator= Paginator(posts, 10);
+
+    page_number = request.GET.get('page')
+    post_page = paginator.get_page(page_number)
+
     return render(request, "network/post.html", {
-        "posts": posts
+        "posts": post_page
     })
 
 def register(request):
