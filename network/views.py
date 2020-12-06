@@ -1,5 +1,6 @@
 from datetime import timezone
 import json;
+from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.db.models import Subquery
@@ -89,8 +90,13 @@ def logout_view(request):
 
 def getPostList(request):
     posts = Post.objects.all().order_by('-created_date')
+    paginator= Paginator(posts, 3);
+
+    page_number = request.GET.get('page')
+    post_page = paginator.get_page(page_number)
+
     return render(request, "network/post.html", {
-        "posts": posts
+        "posts": post_page
     })
 
 def following(request):
