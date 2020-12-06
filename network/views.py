@@ -65,6 +65,7 @@ def login_view(request):
     else:
         return render(request, "network/login.html")
 
+@login_required(login_url='/login')
 def getProfile(request, profile_id):
     try:
         profile = User.objects.get(pk=profile_id)
