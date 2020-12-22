@@ -1,6 +1,15 @@
 document.addEventListener('DOMContentLoaded', function ()  {
     // click post btn event
-    document.querySelector('#postBtn').addEventListener('click', () => savePost());
+    if( document.querySelector('#postBtn')) {
+        document.querySelector('#postBtn').addEventListener('click', () => savePost());
+    }
+
+    if( document.querySelectorAll('.edit-post') && document.querySelectorAll('.edit-post').length > 0) {
+        const nodes = document.querySelectorAll('.edit-post');
+        nodes.forEach(element => {
+            element.addEventListener('click', (e) => editPost(e));
+        });
+    }
 });
 
 /** 
@@ -33,5 +42,24 @@ function savePost() {
 function resetPostField () {
     document.getElementById(`postContent`).value = ``;
     window.location.replace(`${window.location.origin}/posts`);
+}
+
+/**
+ * UI to edit post item
+ */
+function editPost(e) {
+    const {target } = e;
+    const { dataset } = target;
+    const value = dataset['value'];
+    const textAreaSelector = `.post-textarea__${value}`;
+    const textAreaContentSelector = `#content__${value}`;
+    // Toggle display
+    if (document.querySelector(textAreaSelector).style.display === `block`) {
+        document.querySelector(textAreaSelector).style.display = 'none';
+        document.querySelector(textAreaContentSelector).style.display = 'block';
+    } else {
+        document.querySelector(textAreaSelector).style.display = 'block';
+        document.querySelector(textAreaContentSelector).style.display = 'none';
+    }
 }
 

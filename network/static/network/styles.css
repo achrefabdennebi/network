@@ -1,0 +1,4 @@
+div[class*="post-textarea"] {
+    display: none;
+}
+
