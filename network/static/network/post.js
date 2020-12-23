@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', function ()  {
             element.addEventListener('click', (e) => editPost(e));
         });
     }
+
+    if (document.querySelectorAll('.updateBtn')) {
+        const nodes = document.querySelectorAll('.updateBtn');
+        nodes.forEach(element => {
+            element.addEventListener('click', (e) => updatePost(e));
+        });
+    }
 });
 
 /** 
@@ -61,5 +68,19 @@ function editPost(e) {
         document.querySelector(textAreaSelector).style.display = 'block';
         document.querySelector(textAreaContentSelector).style.display = 'none';
     }
+}
+
+/**
+ * Update post
+ * @param {*} e 
+ */
+function updatePost(e) {
+    const {target } = e;
+    const { dataset } = target;
+    const value = dataset['value'];
+    const textAreaSelector = `.post-textarea__${value}`;
+    const textAreaContentSelector = `#content__${value}`;
+    document.querySelector(textAreaSelector).style.display = 'none';
+    document.querySelector(textAreaContentSelector).style.display = 'block';
 }
 
