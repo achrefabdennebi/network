@@ -117,6 +117,27 @@ def following(request):
         "posts": post_page
     })
 
+@csrf_exempt
+@login_required
+def updatePost(request):
+    if (request.method != 'POST'):
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    data = json.loads(request.body)
+    content = data["content"]
+
+    try:
+        post = Post.objects.get(pk=content['id'])
+        if (post is not None):
+            post.content = content['post']
+            post.save()
+
+    except Post.DoesNotExist:
+        raise CommandError("Post not existed")
+
+    return JsonResponse({"message": "Post updated successfully."}, status=201)
+
+
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
