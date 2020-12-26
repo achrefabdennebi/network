@@ -33,6 +33,21 @@ function savePostApi(postData) {
 }
 
 /**
+ * API: UPDATE POST
+ */
+function updatePostApi(postData) {
+    fetch('update', {
+        method: 'POST',
+        body:JSON.stringify(postData)
+    })
+    .then((response) => response.json())
+    .then(() => {
+        hideTextareaUI(postData.content.id);
+        updateContentPost(postData.content);
+    });
+}
+
+/**
  * Save post api
  */
 function savePost() {
@@ -78,9 +93,35 @@ function updatePost(e) {
     const {target } = e;
     const { dataset } = target;
     const value = dataset['value'];
-    const textAreaSelector = `.post-textarea__${value}`;
-    const textAreaContentSelector = `#content__${value}`;
+    const textAreaContainer = document.querySelector(`.post-textarea__${value}`);
+    const postContent = textAreaContainer.children[0].value;
+    
+    if (postContent) {
+        const postData = {
+            content:  {
+                id : value,
+                post: postContent
+            }
+        };
+    
+        updatePostApi(postData);
+    }
+}
+
+/**
+ * Hide textarea input element
+ * @param {*} postId 
+ */
+function hideTextareaUI(postId) {
+    const textAreaSelector = `.post-textarea__${postId}`;
+    const textAreaContentSelector = `#content__${postId}`;
     document.querySelector(textAreaSelector).style.display = 'none';
     document.querySelector(textAreaContentSelector).style.display = 'block';
 }
 
+function updateContentPost(content) {
+   if (content && content.id) {
+       const element = `#content__${content.id}`;
+       document.querySelector(element).innerHTML = content.post;
+   }
+}
