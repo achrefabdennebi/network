@@ -6,16 +6,17 @@ document.addEventListener('DOMContentLoaded', function ()  {
 
     if( document.querySelectorAll('.edit-post') && document.querySelectorAll('.edit-post').length > 0) {
         const nodes = document.querySelectorAll('.edit-post');
-        nodes.forEach(element => {
-            element.addEventListener('click', (e) => editPost(e));
-        });
+        nodes.forEach(element => element.addEventListener('click', (e) => editPost(e)));
     }
 
-    if (document.querySelectorAll('.updateBtn')) {
+    if (document.querySelectorAll('.updateBtn') && document.querySelectorAll('.updateBtn').length > 0) {
         const nodes = document.querySelectorAll('.updateBtn');
-        nodes.forEach(element => {
-            element.addEventListener('click', (e) => updatePost(e));
-        });
+        nodes.forEach(element => element.addEventListener('click', (e) => updatePost(e)));
+    }
+
+    if (document.querySelectorAll('.btnLike') && document.querySelectorAll('.updateBtn').length > 0) {
+        const nodes = document.querySelectorAll('.btnLike');
+        nodes.forEach(element => element.addEventListener('click', (e) => likePost(e)));
     }
 });
 
@@ -124,4 +125,18 @@ function updateContentPost(content) {
        const element = `#content__${content.id}`;
        document.querySelector(element).innerHTML = content.post;
    }
+}
+
+/**
+ * Like post 
+ * @param {*} e 
+ */
+function likePost(e) {
+    let {target } = e;
+    if (target.closest(`.btnLike`)) {
+        target = target.closest(`.btnLike`);
+        const { dataset } = target;
+        const value = dataset['value'];
+        console.log(`Post id: ${value}`);
+    }
 }
