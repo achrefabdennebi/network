@@ -138,6 +138,17 @@ def updatePost(request):
     return JsonResponse({"message": "Post updated successfully."}, status=201)
 
 
+def likePost(request):
+    if (request.method != 'POST'):
+        return JsonResponse({"error": "POST request required."})
+    
+    data = json.loads(request.body)
+    content = data["content"]
+
+    print(f"id post = {content}")
+
+    return JsonResponse({"message": "Post liked successfully"}, status = 201)
+
 def register(request):
     if request.method == "POST":
         username = request.POST["username"]
