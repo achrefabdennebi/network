@@ -137,7 +137,8 @@ def updatePost(request):
 
     return JsonResponse({"message": "Post updated successfully."}, status=201)
 
-
+@csrf_exempt
+@login_required
 def likePost(request):
     if (request.method != 'POST'):
         return JsonResponse({"error": "POST request required."})
@@ -145,7 +146,7 @@ def likePost(request):
     data = json.loads(request.body)
     content = data["content"]
 
-    print(f"id post = {content}")
+    print(f"id post = {content['id']}")
 
     return JsonResponse({"message": "Post liked successfully"}, status = 201)
 

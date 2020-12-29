@@ -39,13 +39,26 @@ function savePostApi(postData) {
 function updatePostApi(postData) {
     fetch('update', {
         method: 'POST',
-        body:JSON.stringify(postData)
+        body: JSON.stringify(postData)
     })
     .then((response) => response.json())
     .then(() => {
         hideTextareaUI(postData.content.id);
         updateContentPost(postData.content);
     });
+}
+
+/**
+ * API: Like a POST
+ * @param {*} postData 
+ */
+function likePostApi(postData) {
+    fetch('like', {
+        method: 'POST',
+        body: JSON.stringify(postData)
+    })
+    .then((response) => response.json())
+    .then((data) => console.log(data));
 }
 
 /**
@@ -58,6 +71,7 @@ function savePost() {
     }    
     savePostApi(postData)
 }
+
 
 /**
  * Update Textarea field aft
@@ -137,6 +151,13 @@ function likePost(e) {
         target = target.closest(`.btnLike`);
         const { dataset } = target;
         const value = dataset['value'];
-        console.log(`Post id: ${value}`);
+
+        const postData = {
+            content : {
+                id: value
+            }
+        };
+
+        likePostApi(postData);
     }
 }
