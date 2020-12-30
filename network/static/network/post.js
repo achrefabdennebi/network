@@ -58,7 +58,7 @@ function likePostApi(postData) {
         body: JSON.stringify(postData)
     })
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => updateCountingLikesUI(data));
 }
 
 /**
@@ -160,4 +160,14 @@ function likePost(e) {
 
         likePostApi(postData);
     }
+}
+
+/**
+ * updateCountingLikesUI
+ * @param {*} postInformation 
+ */
+function updateCountingLikesUI(postInformation) {
+    const { id, count } = postInformation;
+    const elementSelector = `#like_${id}`;
+    document.querySelector(elementSelector).innerHTML = count
 }
