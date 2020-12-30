@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.core.management.base import CommandError
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from .models import User, Post, Follower
+from .models import Like, User, Post, Follower
 import datetime
 
 def index(request):
@@ -145,8 +145,25 @@ def likePost(request):
     
     data = json.loads(request.body)
     content = data["content"]
+    post_id = content['id'];
 
-    print(f"id post = {content['id']}")
+
+    try:
+        post = Post.objects.get(pk=post_id)
+        like = Like.objects.get(post=post)
+    except Like.DoesNotExist:
+        like = None
+    
+    if like:
+        Like.objects.filter(
+            post=post, 
+            user=request.user
+            ).delete()
+    else:
+        Like.objects.create(
+            post=post,
+            user=request.user
+        )
 
     return JsonResponse({"message": "Post liked successfully"}, status = 201)
 
