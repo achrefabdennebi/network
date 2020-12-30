@@ -150,7 +150,7 @@ def likePost(request):
 
     try:
         post = Post.objects.get(pk=post_id)
-        like = Like.objects.get(post=post)
+        like = Like.objects.get(post=post, user=request.user)
     except Like.DoesNotExist:
         like = None
     
@@ -159,13 +159,25 @@ def likePost(request):
             post=post, 
             user=request.user
             ).delete()
+
+        countLikes = Like.objects.filter(post=post).count()
+        message = {
+            "count": countLikes,
+            "id": int(post_id)
+        }
     else:
         Like.objects.create(
             post=post,
             user=request.user
         )
 
-    return JsonResponse({"message": "Post liked successfully"}, status = 201)
+        countLikes = Like.objects.filter(post=post).count()
+        message = {
+            "count": countLikes,
+            "id": int(post_id)
+        }
+
+    return JsonResponse(message, status = 201)
 
 def register(request):
     if request.method == "POST":
