@@ -21,6 +21,13 @@ class Post(models.Model):
     def __str__(self):
         return f"{self.content[:25] } - {self.created_by} / ({self.created_date.strftime('%b %d %Y, %I:%M %p') })"
 
+class Like(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name="likes")
+    post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.CASCADE, related_name="posts")
+
+    def __str__(self):
+        return u'%s like %s' % (self.user , self.post)
+
 class Follower(models.Model):
     follower = models.ForeignKey(User,on_delete=models.CASCADE, related_name="following")
     following = models.ForeignKey(User,on_delete=models.CASCADE, related_name="followers")
