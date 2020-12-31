@@ -96,7 +96,6 @@ def logout_view(request):
 def getPostList(request):
     posts = Post.objects.all().order_by('-created_date')
     paginator= Paginator(posts, 10);
-
     page_number = request.GET.get('page')
     post_page = paginator.get_page(page_number)
 
