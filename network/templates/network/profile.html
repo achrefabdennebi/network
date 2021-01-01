@@ -19,9 +19,19 @@
         {% if user.id != profile.id%}
         <div class="float-right">
             {% if is_followed %}
-                <a href="#" class="btn btn-danger btn-sm">Unfollow</a>
+                <form action="{% url 'unfollow' profile.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Unfollow
+                    </button>
+                </form>
             {% else %}
-                <a href="#" class="btn btn-primary btn-sm">Follow</a>
+                <form action="{% url 'follow' profile.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        Follow
+                    </button>
+                </form>
             {% endif  %}
         </div>
         {% endif %}
