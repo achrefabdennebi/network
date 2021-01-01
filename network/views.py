@@ -116,6 +116,24 @@ def following(request):
         "posts": post_page
     })
 
+
+def follow(request, profile_id):
+    if request.method == "POST":
+        profile = User.objects.get(pk=profile_id)
+
+        Follower.objects.create(
+            follower = request.user,
+            following = profile
+        )
+
+    return HttpResponseRedirect(reverse("profile", args=(profile_id,)))
+
+def unfollow(request, profile_id):
+    if request.method == "POST":
+        Follower.objects.filter(following_id = profile_id).delete()
+
+    return HttpResponseRedirect(reverse("profile", args=(profile_id,)))
+
 @csrf_exempt
 @login_required
 def updatePost(request):
